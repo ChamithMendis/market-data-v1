@@ -17,6 +17,11 @@ module.exports = {
    * @param {Date} end_date - End Date.
    * @param {string} name - Symbol Name.
    * @param {string} exchange_code - Exchange Code.
+   * @param {number} open -  Open Price.
+   * @param {number} close - Close Price.
+   * @param {number} high - Highest Price.
+   * @param {number} low - Lowest Price.
+   * @param {number} market - Market Price  .
    */
 
   saveSymbolMetaData: (symbolData) => {
@@ -53,6 +58,53 @@ module.exports = {
         })
         .catch((err) => {
           console.log(`Error saving data for symbol ${symbolData.symbol}`);
+          throw err;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  saveSymbolPriceData: (symbolPriceData) => {
+    try {
+      const ticker = symbolPriceData.symbol;
+      const date = symbolPriceData.data?.date
+        ? new Date(symbolPriceData.data.date)
+        : null;
+      const open = symbolPriceData.data?.open
+        ? symbolPriceData.data?.open
+        : null;
+      const close = symbolPriceData.data?.close
+        ? symbolPriceData.data?.close
+        : null;
+      const high = symbolPriceData.data?.hig
+        ? symbolPriceData.data?.high
+        : null;
+      const low = symbolPriceData.data?.low ? symbolPriceData.data?.low : null;
+      const market = symbolPriceData.data?.market
+        ? symbolPriceData.data?.market
+        : null;
+
+      const query = `INSERT INTO symbol_price_data (ticker, date, open, close, high, low, market) VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (ticker)
+        DO UPDATE SET
+        date = EXCLUDED.date,
+        open = EXCLUDED.open,
+        close = EXCLUDED.close,
+        high = EXCLUDED.high,
+        low = EXCLUDED.low,
+        market = EXCLUDED.market`;
+      const values = [ticker, date, open, close, high, low, market];
+
+      return pool
+        .query(query, values)
+        .then((res) => {
+          console.log(`Price data saved for symbol ${symbolPriceData.symbol}`);
+          return res;
+        })
+        .catch((err) => {
+          console.log(
+            `Error saving Price data for symbol ${symbolPriceData.symbol}`
+          );
           throw err;
         });
     } catch (error) {
