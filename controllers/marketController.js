@@ -16,7 +16,6 @@ module.exports = {
     try {
         const { symbolName } = req.params;
         marketService.getSymbolMetaData(symbolName).then((response) => {
-            // save to db
             res.json(response);
         });
     } catch(error) {

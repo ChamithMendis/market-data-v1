@@ -22,6 +22,7 @@ module.exports = {
     getSymbolMetaData: (symbolName) => {
         try {
             return axios.get(`https://api.tiingo.com/tiingo/daily/${symbolName}`, {headers: headers}).then((response) => {
+                marketModel.saveSymbolData(response.data); // db calls
                 return response.data;
             }).catch((error) => {
                 console.error(`Error fetching meta data for: ${symbolName}`, error.message);
