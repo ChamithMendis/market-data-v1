@@ -1,4 +1,5 @@
 const marketService = require("../services/marketService");
+const logger = require("../utils/logger");
 
 module.exports = {
   test: (req, res) => {
