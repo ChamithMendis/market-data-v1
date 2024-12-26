@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const taskRoutes = require("./routes/taskRoutes");
 const marketRoutes = require("./routes/marketRoutes");
 const startupService = require("./services/startupService");
+const priceWebSocketService = require("./websocket/websocket");
 
 const app = express();
 
@@ -17,6 +18,7 @@ startupService
   .fetchStartupData()
   .then((data) => {
     console.log("..... DB Initialized successfully .....");
+    priceWebSocketService.connectToWebSocket();
   })
   .catch((error) => {
     console.error("..... Failed to initialize DB .....", error.message);

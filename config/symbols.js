@@ -1,3 +1,3 @@
 module.exports = {
-  SYMBOLS: ["aapl", "googl", "tess", "tekcq", "nsal"],
+  SYMBOLS: ["aapl", "googl", "cava", "gevo", "amd"],
 };
