@@ -111,4 +111,37 @@ module.exports = {
       console.log(error);
     }
   },
+  getSavedSymbolsMetaData: () => {
+    const query = "SELECT * FROM symbol_data";
+    return pool
+      .query(query)
+      .then((result) => result.rows)
+      .catch((error) => {
+        console.log("Error retreving symbol data", error.message);
+      });
+  },
+  getSymbolByName: (symbol) => {
+    const query = "SELECT * FROM symbol_data WHERE UPPER(ticker) = UPPER($1)";
+    return pool
+      .query(query, [symbol])
+      .then((result) => result.rows[0])
+      .catch((error) => {
+        console.error(`Error retrieving symbol ${symbol}:`, error.message);
+        throw error;
+      });
+  },
+  getSavedSymbolPriceData: (symbol) => {
+    const query =
+      "SELECT * FROM symbol_price_data WHERE UPPER(ticker) = UPPER($1)";
+    return pool
+      .query(query, [symbol])
+      .then((result) => result.rows[0])
+      .catch((error) => {
+        console.error(
+          `Error retrieving symbol price data for ${symbol}:`,
+          error.message
+        );
+        throw error;
+      });
+  },
 };
