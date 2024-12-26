@@ -5,7 +5,7 @@ const { response } = require("express");
 
 headers = {
   "Content-Type": "application/json",
-  Authorization: "Token 16568609525e84e3550bab3c4110a221678b24a9", // a1b40767fce568f74a7eb77a65f6ce80de0b782c
+  Authorization: "Token 16568609525e84e3550bab3c4110a221678b24a9",
 };
 
 module.exports = {

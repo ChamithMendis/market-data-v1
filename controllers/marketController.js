@@ -6,10 +6,17 @@ module.exports = {
       marketService
         .test()
         .then((response) => {
-          res.json(response);
+          res.status(200).json({
+            success: true,
+            data: response,
+          });
         })
         .catch((error) => {
-          res.status(500).json({ error: error.message });
+          res.status(500).json({
+            success: false,
+            message: "Failed test route",
+            error: error.message,
+          });
         });
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -19,31 +26,51 @@ module.exports = {
     try {
       const { symbolName } = req.params;
       marketService.getSymbolMetaData(symbolName).then((response) => {
-        res.json(response);
+        res.status(200).json({
+          success: true,
+          data: response,
+        });
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve symbol meta data from tiingo",
+        error: error.message,
+      });
     }
   },
   getSymbolLatestPriceData: (req, res) => {
     try {
       const { symbolName } = req.params;
       marketService.getSymbolLatestPriceData(symbolName).then((response) => {
-        // save to db
-        res.json(response);
+        res.status(200).json({
+          success: true,
+          data: response,
+        });
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve symbol price data from tiingo",
+        error: error.message,
+      });
     }
   },
   getSymbolHistoryData: (req, res) => {
     try {
       const { symbolName } = req.params;
       marketService.getSymbolHistoryData(req, symbolName).then((response) => {
-        res.json(response);
+        res.status(200).json({
+          success: true,
+          data: response,
+        });
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve symbol history data from tiingo",
+        error: error.message,
+      });
     }
   },
   getSymbolHistoryDataToCsv: (req, res) => {
@@ -52,11 +79,17 @@ module.exports = {
       marketService
         .getSymbolHistoryDataToCsv(req, symbolName)
         .then((response) => {
-          // save to db
-          res.json(response);
+          res.status(200).json({
+            success: true,
+            data: response,
+          });
         });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        success: false,
+        message: "Failed to extract symbol price data from tiingo to csv",
+        error: error.message,
+      });
     }
   },
   getSavedSymbolsMetaData: (req, res) => {

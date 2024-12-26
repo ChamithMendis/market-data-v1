@@ -9,22 +9,22 @@ router.get("/test", marketController.test);
 
 /* ---------- market symbol price data routes [Start] ---------- */
 
-// get symbol meta data
+// get symbol meta data from tiingo
 router.get("/getSymbol/:symbolName", marketController.getSymbolMetaData);
 
-// get symbol price latest data
+// get symbol price latest data from tiingo
 router.get(
   "/getSymbolPriceData/:symbolName",
   marketController.getSymbolLatestPriceData
 );
 
-// get symbol price history data
+// get symbol price history data from tiingo
 router.get(
   "/getSymbolHistoryData/:symbolName",
   marketController.getSymbolHistoryData
 );
 
-// get symbol price history data to csv
+// get symbol price history data to csv from tiingo
 router.get(
   "/getSymbolHistoryDataToCsv/:symbolName",
   marketController.getSymbolHistoryDataToCsv
@@ -32,7 +32,7 @@ router.get(
 
 /* ---------- market data routes [End] ---------- */
 
-/* ---------- fetch saved data [Start] ---------- */
+/* ---------- fetch saved data from db [Start] ---------- */
 
 router.get("/getSavedSymbols", marketController.getSavedSymbolsMetaData);
 
@@ -43,6 +43,6 @@ router.get(
   marketController.getSavedSymbolPriceData
 );
 
-/* ---------- fetch saved data [End] ---------- */
+/* ---------- fetch saved data from db [End] ---------- */
 
 module.exports = router;
