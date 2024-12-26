@@ -29,6 +29,7 @@ Installation
 Clone the repository:
 
 git clone https://github.com/ChamithMendis/market-data-v1.git
+
 cd market-data-v1
 
 Install dependencies:
@@ -76,7 +77,7 @@ ALTER TABLE ONLY public.symbol_data ADD CONSTRAINT symbol_data_unique_key_ticker
 
 ALTER TABLE ONLY public.symbol_price_data ADD CONSTRAINT symbol_price_data_unique_key_ticker UNIQUE (ticker);
 
-Update database credentials in models/symbolModel.js:
+Update database credentials in models/marketModel.js:
 
 const pool = new Pool({
 user: 'your_db_user',
@@ -85,8 +86,6 @@ database: 'marketDB',
 password: 'your_db_password',
 port: 5432,
 });
-
-Configure the WebSocket endpoint and logging settings as needed.
 
 Usage
 
@@ -110,12 +109,13 @@ Use Postman to call API endpoints
 
 REST END POINTS
 
-To all the rest endpoints please use below key value pairs in the headers. You can use your own tocken from tiingo API as wish
+http://localhost:3000/market/test - To check if the postman to backend requests are functioning
+
+To all the rest endpoints regarding market data please use below key value pairs in the headers. You can use your own tocken from tiingo API as wish
 
 Content-Type: application/json,
 Authorization: Token 16568609525e84e3550bab3c4110a221678b24a9,
 
-http://localhost:3000/market/test - To check if the postman to backend requests are functioning
 http://localhost:3000/market/getSymbol/<symbol_name> - To get the symbol meta data from tiingo api (use aapl as examble symbol_name)
 http://localhost:3000/market/getSymbolPriceData/<symbol_name> - To get the symbol price data from tiingo api (use aapl as examble symbol_name)
 http://localhost:3000/market/getSymbolHistoryData/<symbol_name> - To get the symbol price data from tiingo api (use aapl as examble symbol_name), configure startDate and endDate as wish in the body of the request as a json
