@@ -59,9 +59,6 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
-  getSymbolData: (req, res) => {
-    res.json(marketService.getSymbolData());
-  },
   getSavedSymbolsMetaData: (req, res) => {
     try {
       marketService.getSavedSymbolsMetaData().then((symbols) => {
