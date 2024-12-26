@@ -2,6 +2,7 @@ const axios = require("axios");
 const marketModel = require("../models/marketModel");
 const { SYMBOLS } = require("../config/symbols");
 const { response } = require("express");
+const logger = require("../utils/logger");
 
 headers = {
   "Content-Type": "application/json",
